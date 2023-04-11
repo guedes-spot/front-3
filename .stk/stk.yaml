@@ -1,0 +1,81 @@
+schema-version: v1
+kind: manifest
+metadata:
+  name: front-3
+  description: teste front 3
+  starter: smoke3-studio/smoke3-stack/smoke3-gondim
+  stack-version-id: 01GXNJAYHTFX4P0KFE0SF9WGRZ
+spec:
+  type: app
+  plugins:
+    - name: test/integration-test/dotnet-api-plugin@0.0.8
+      plugin-version-id: 01GXKSBMQV98T5WVT38RM22FT0
+      type: app
+      inputs: {}
+      inputs-envs: {}
+      connectors: []
+    - name: test/integration-test/dotnet-errorhandler-plugin@0.0.2
+      plugin-version-id: 01GXKSG5W7M27Y4KK4E1T7SQCT
+      type: app
+      inputs: {}
+      inputs-envs: {}
+      connectors: []
+    - name: test/integration-test/dotnet-rds-plugin@1.0.9
+      plugin-version-id: 01GXKS6FQJATQ48A01P6SCBX02
+      type: app
+      inputs:
+        check_migration: true
+        check_migration_example: true
+        aws_rds_conn__CONNECTOR__engine: postgres
+        aws_rds_conn__CONNECTOR__engine_version: '14.3'
+        aws_rds_conn__CONNECTOR__name: testerdsconn
+        aws_rds_conn__CONNECTOR__host: testerdsconn.cobluolok4uu.us-east-1.rds.amazonaws.com
+        aws_rds_conn__CONNECTOR__port: 5432
+        aws_rds_conn__CONNECTOR__user: postgres
+        aws_rds_conn__CONNECTOR__pass: '***'
+        aws_rds_conn__CONNECTOR: aws-rds-smoke3-conn
+      inputs-envs: {}
+      connectors:
+        - name: aws-rds-smoke3-conn
+          type: aws-rds-conn
+    - name: test/managed-runtime/microserviceapp@0.0.7
+      plugin-version-id: 01GXKMGC1RM976MA5Y736QGSG2
+      type: app
+      inputs:
+        namespace: Namespace
+        port: '8080'
+        check_env: true
+        envs: test
+        check_ingress: true
+        domain: teste.com
+        memory: '20'
+        check_cpu_limit: true
+        cpu: '20'
+        check_min_replicas: true
+        min_replicas: 3
+        check_max_replicas: true
+        max_replicas: 5
+        check_average_memory_utilization: true
+        average_memory_utilization: 27
+        check_average_cpu_utilization: true
+        average_cpu_utilization: 30
+        aws_eks_conn__CONNECTOR__cluster_name: orange
+        aws_eks_conn__CONNECTOR__cluster_endpoint: https://90772829CEB4EDEC53EFE017D5E0A4EC.gr7.us-east-1.eks.amazonaws.com
+        aws_eks_conn__CONNECTOR__cluster_ca_certificate: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM1ekNDQWMrZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJeU1ETXpNREUxTkRjd05Gb1hEVE15TURNeU56RTFORGN3TkZvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTkVECmUvOFo5eVZuQzVjczNOcEt6RXdSVEZXdHRMSGtrYTg1c2d6L1J6NXlVak5IS1JKKzQrdUtEZEZObXZIYXlZb0UKZVJUWUYwbGl6am9RM0tYYVduYTZrRjJ0R3pjRm82ZWRqSVFrUHhwT2NUQ2lCTWtDamtiUDVYbWxWTlJtQmpPZwp3YmViWHlGeDBiWDhLTWkrWDhhSThWakptaEdtdnpPK050WEQyaHNKWVR5RVdRQ0J5UGI0NGxsS3BGeUdZdlVzCmNxS1pLT1RrMm5sUkVOeVZqcElXdVczNEJKdkFMbE8rdDJNb0hCVy9wWVZ1OHhpVFpyM0wwdmtqdlFTV05iSWgKWFZyTEFRV2s2RmRFWGU3OGVvME9lc29KSERkRnZqVjF0UjlJU0RFeDAyUFN5SStGc0VRVzZoNlAyMkcxdys3dgp6b1ZyeU1hT1JpTzNVdmFhVjlrQ0F3RUFBYU5DTUVBd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZCV2FSSnRFN2tHYnIyT21PY3ViYkg2RWJkMXhNQTBHQ1NxR1NJYjMKRFFFQkN3VUFBNElCQVFDdmM3TUV5TW5oYS9vVkdlVmdqVWNpS2hFcFlTODdrTko0T25CR3pPbDNYTThaQTFYNQpGUFRwR1RML1FTbDRUMXkwWFI4L1NxZjNpMDF3ZFFZKzVLMEJzdm4yUGN1dVZobDhXNFJQQ0lIdHB2eEhTRVBRCkhRMUJpZ0ZsblRVeUMyODlhekRqMm10Yy9zVHB2Ykg4Nm15NVkzT280c1NuTFdlMzZlcE1DekRNTkRoamY3VVcKNC9RV3poYmVMWXRVajJwekJicWV3Nys5NVB0N3I4clRrYklWMXJuRGZwZWRCYzFvUDhUVDRwUjZyb2hNNUQ0MApWeU1mNTh3V1NCSEJPRnR3emFINlZIc0tOc0tGeGNMOWNFRmYxaUcyWEpYNVVpcjdsVVBoTjBSc0MzSXZTeG41CjNGMWpndUtwYUZweTBuczg2dXduYkVWYWJUbk5Jd2U1OG83NQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+        aws_eks_conn__CONNECTOR__account_id: '218551854063'
+        aws_eks_conn__CONNECTOR__region: us-east-1
+        aws_eks_conn__CONNECTOR__eks_oidc_id: 90772829CEB4EDEC53EFE017D5E0A4EC
+        aws_eks_conn__CONNECTOR: aws-eks-smoke3-conn
+      inputs-envs: {}
+      connectors:
+        - name: aws-eks-smoke3-conn
+          type: aws-eks-conn
+  global-inputs:
+    project_name: Teste
+  global-computed-inputs:
+    project_type: Api
+    src_base_path: ''
+    version: stackspot.rest
+    package: StackSpot.Template.Rest
+    framework: net6.0
+  repository: https://github.com/guedes-spot/front-3
